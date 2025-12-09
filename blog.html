@@ -3,27 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - sp4ghet</title>
+    <title>Blog - hisa</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="background-blobs">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
+    <div class="interactive-bg">
+        <div class="glow-point p1"></div>
+        <div class="glow-point p2"></div>
+        <div class="glow-point p3"></div>
     </div>
+
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="#">Works</a>
+        <a href="blog.html">Blog</a>
+        <a href="#">About</a>
+    </nav>
 
     <div class="container blog-container">
         <header class="blog-header">
             <h1>Blog</h1>
-            <a href="index.html" class="back-link">← Back to Home</a>
+            <p class="blog-description">
+                日々の思考、デザインのプロセス、読んだ本や訪れた建築の記録など。<br>
+                雑多なログを残していきます。
+            </p>
         </header>
 
         <ul class="blog-list">
             
             <li>
-                <a href="#">
+                <a href="2024-review.html">
                     <span class="blog-title">2024年を振り返る</span>
                     <span class="blog-date">December 31, 2024</span>
                 </a>
@@ -49,9 +59,17 @@
                     <span class="blog-date">March 14, 2021</span>
                 </a>
             </li>
-            
-            </ul>
+        </ul>
     </div>
 
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            document.querySelector('.p1').style.transform = `translate(${x * 0.05}px, ${y * 0.05}px)`;
+            document.querySelector('.p2').style.transform = `translate(${x * -0.08}px, ${y * -0.08}px)`; 
+            document.querySelector('.p3').style.transform = `translate(${x * 0.02}px, ${y * 0.02}px)`;
+        });
+    </script>
 </body>
 </html>
