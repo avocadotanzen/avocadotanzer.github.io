@@ -246,3 +246,22 @@ a:hover {
     padding-top: 20px;
     border-top: 1px solid rgba(255,255,255,0.1);
 }
+/* 画面幅が768px以下（スマホやタブレット）の時だけ適用される設定 */
+@media screen and (max-width: 768px) {
+  
+  /* 例：全体の幅を100%にする */
+  body, .container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  /* 例：横並びの要素を縦並びにする */
+  .main-content {
+    flex-direction: column;
+  }
+
+  /* 例：文字サイズを少し大きくして読みやすくする */
+  p {
+    font-size: 16px;
+  }
+}
