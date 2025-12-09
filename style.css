@@ -19,12 +19,21 @@ body {
 a {
     text-decoration: none;
     color: inherit;
-    transition: all 0.3s ease;
+    /* 靄がかかる様子をゆっくり表現するために時間を少し長く(0.5s)設定 */
+    transition: all 0.5s ease;
 }
 
 a:hover {
-    opacity: 1;
-    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    /* 1. 文字自体を少しぼかす */
+    filter: blur(1.5px); 
+    
+    /* 2. 周囲に白い靄（光）を広げる */
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.4);
+        
+    /* 3. 少しだけ透明にして儚さを出す */
+    opacity: 0.9;
 }
 
 /* =========================================
