@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025年を振り返る - hisa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="interactive-bg">
+        <div class="glow-point p1"></div>
+        <div class="glow-point p2"></div>
+        <div class="glow-point p3"></div>
+    </div>
+
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="#">Works</a>
+        <a href="blog.html">Blog</a>
+        <a href="#">About</a>
+    </nav>
+
+    <div class="container article-container">
+        <header class="article-header">
+            <h1 class="article-title">2024年を振り返る</h1>
+            <p class="article-date">2024.12.31</p>
+        </header>
+
+        <article class="article-content">
+            <p>
+               紐靴の靴紐<br>そば天ぷらの天ぷらそば<br>
+<h2>ご飯かけ卵の卵かけご飯添え
+<br>
+                
+            </p>
+            
+            <h2>見出しの例</h2>
+            <p>
+                テキストだけでなく、画像を挿入したりリストを作ったりできます。
+                シンプルで見やすい構成を心がけると良いでしょう。
+            </p>
+            
+            </article>
+
+        <div class="article-footer">
+            <a href="blog.html">← Back to Blog List</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            document.querySelector('.p1').style.transform = `translate(${x * 0.05}px, ${y * 0.05}px)`;
+            document.querySelector('.p2').style.transform = `translate(${x * -0.08}px, ${y * -0.08}px)`; 
+            document.querySelector('.p3').style.transform = `translate(${x * 0.02}px, ${y * 0.02}px)`;
+        });
+    </script>
+</body>
+</html>
