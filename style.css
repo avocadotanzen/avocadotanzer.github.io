@@ -6,30 +6,31 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* ヘルベチカ指定 */
-    background-color: #1a1a1a; /* ベースは暗い色 */
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #050505; /* より深い漆黒 */
     color: #ffffff;
     overflow-x: hidden;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 垂直中央揃え */
+    justify-content: center;
 }
 
 a {
     text-decoration: none;
     color: inherit;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 a:hover {
-    opacity: 0.7;
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5); /* ホバー時に発光 */
 }
 
 /* =========================================
-   Background Blobs (グラデーション背景)
+   Interactive Background (マウス追従する光)
    ========================================= */
-.background-blobs {
+.interactive-bg {
     position: fixed;
     top: 0;
     left: 0;
@@ -37,59 +38,56 @@ a:hover {
     height: 100%;
     z-index: -1;
     overflow: hidden;
-    background: #0f1c15; /* 暗い緑ベース */
+    background: #000000;
 }
 
-.blob {
+.glow-point {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px); /* 強くぼかす */
-    opacity: 0.6;
-    animation: move 20s infinite alternate;
+    filter: blur(100px); /* 強くぼかして光のようにする */
+    opacity: 0.7;
+    mix-blend-mode: screen; /* 光を重ねる描画モード */
+    transition: transform 0.1s ease-out; /* JavaScriptの動きを滑らかに */
 }
 
-/* 緑の光 */
-.blob-1 {
+/* 緑の光 (左上配置) */
+.p1 {
     top: -10%;
     left: -10%;
-    width: 60vw;
-    height: 60vw;
-    background: #2ecc71;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, rgba(46, 204, 113, 0.8), transparent 70%);
 }
 
-/* 紫/ピンクの光 */
-.blob-2 {
+/* 紫の光 (右下配置) */
+.p2 {
     bottom: -10%;
     right: -10%;
-    width: 70vw;
-    height: 70vw;
-    background: #9b59b6;
-    animation-delay: -5s;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(155, 89, 182, 0.8), transparent 70%);
 }
 
-/* 赤/オレンジのアクセント */
-.blob-3 {
-    top: 40%;
+/* アクセントの赤 (中央) */
+.p3 {
+    top: 30%;
     left: 40%;
     width: 40vw;
     height: 40vw;
-    background: #e74c3c;
-    animation-delay: -10s;
+    background: radial-gradient(circle, rgba(231, 76, 60, 0.6), transparent 70%);
 }
 
-@keyframes move {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(20px, -20px) scale(1.1); }
-}
 
 /* =========================================
-   Layout: Index (Portal)
+   Layout
    ========================================= */
 .container {
     max-width: 1000px;
     margin: 0 auto;
     padding: 40px;
     text-align: center;
+    position: relative; /* 背景より上に表示 */
+    z-index: 1;
 }
 
 .site-header {
@@ -99,13 +97,14 @@ a:hover {
 .logo-text {
     font-size: 3rem;
     font-weight: bold;
-    letter-spacing: -0.05em; /* タイトな文字間 */
+    letter-spacing: -0.05em;
+    margin: 0;
 }
 
 .main-nav {
     display: flex;
     justify-content: center;
-    gap: 60px; /* アイコン間の距離 */
+    gap: 60px;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -115,14 +114,24 @@ a:hover {
     align-items: center;
     gap: 15px;
     text-align: left;
+    /* ガラスのような半透明エフェクト */
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
 }
 
 .icon-box img {
-    width: 100px; /* アイコンサイズ */
-    height: 100px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
-    border-radius: 10px; /* 角を少し丸く */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border-radius: 8px;
 }
 
 .text-box {
@@ -137,72 +146,24 @@ a:hover {
 
 .text-box .jp {
     font-size: 0.9rem;
-    opacity: 0.7;
+    opacity: 0.6;
     margin-top: 2px;
 }
 
-/* =========================================
-   Layout: Blog List
-   ========================================= */
+/* Blogページなどでの再利用 */
 .blog-container {
     text-align: left;
     max-width: 800px;
 }
-
-.blog-header {
-    margin-bottom: 50px;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    padding-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-
 .blog-header h1 {
     font-size: 3rem;
-    margin: 0;
     font-weight: 300;
 }
 
-.back-link {
-    font-size: 1rem;
-    color: #ccc;
-}
-
-.blog-list {
-    list-style: none;
-    padding: 0;
-}
-
-.blog-list li {
-    margin-bottom: 30px;
-}
-
-.blog-list a {
-    display: block;
-}
-
-.blog-title {
-    display: block;
-    font-size: 1.4rem;
-    color: #4cd1a3; /* リンク色（少し明るい緑） */
-    margin-bottom: 5px;
-}
-
-.blog-date {
-    display: block;
-    font-size: 0.9rem;
-    color: #aaaaaa;
-    font-weight: 300;
-}
-
-/* =========================================
-   About Section
-   ========================================= */
+/* About Section */
 .about-section {
     max-width: 600px;
     margin: 60px auto 0;
     text-align: center;
-    line-height: 1.8;
-    color: #ddd;
+    color: #666;
 }
