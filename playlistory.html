@@ -1,0 +1,158 @@
+<style>
+  /* ユーザー調整用変数 */
+  :root {
+    --tree-line-color: #333;       /* 線の色 */
+    --tree-line-width: 2px;        /* 線の太さ */
+    --node-bg-color: #fff;         /* ボックスの背景色 */
+    --node-border-color: #333;     /* ボックスの枠線色 */
+    --node-border-radius: 12px;    /* 角の丸み */
+    --node-padding: 10px 15px;     /* 文字周りの余白 */
+    --arrow-size: 6px;             /* 矢印の大きさ */
+  }
+
+  /* ツリー全体のコンテナ */
+  .flowchart-tree {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* 読みやすいフォント */
+  }
+
+  .flowchart-tree ul {
+    padding-top: 20px;
+    position: relative;
+    transition: all 0.5s;
+    display: flex;
+    justify-content: center;
+  }
+
+  .flowchart-tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 10px 0 10px;
+    transition: all 0.5s;
+  }
+
+  /* 線を描画するロジック (兄弟要素をつなぐ線) */
+  .flowchart-tree li::before, .flowchart-tree li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: var(--tree-line-width) solid var(--tree-line-color);
+    width: 50%;
+    height: 20px;
+  }
+  .flowchart-tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: var(--tree-line-width) solid var(--tree-line-color);
+  }
+
+  /* 最初と最後の要素の線の処理 */
+  .flowchart-tree li:only-child::after, .flowchart-tree li:only-child::before {
+    display: none;
+  }
+  .flowchart-tree li:only-child {
+    padding-top: 0;
+  }
+  .flowchart-tree li:first-child::before, .flowchart-tree li:last-child::after {
+    border: 0 none;
+  }
+  .flowchart-tree li:last-child::before {
+    border-right: var(--tree-line-width) solid var(--tree-line-color);
+    border-radius: 0 5px 0 0;
+  }
+  .flowchart-tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+  }
+
+  /* 下向きの垂直線を描画 */
+  .flowchart-tree ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: var(--tree-line-width) solid var(--tree-line-color);
+    width: 0;
+    height: 20px;
+  }
+
+  /* ノード（文字が入る四角）のデザイン */
+  .flowchart-tree .node {
+    border: var(--tree-line-width) solid var(--node-border-color);
+    padding: var(--node-padding);
+    text-decoration: none;
+    color: #333;
+    display: inline-block;
+    border-radius: var(--node-border-radius);
+    background-color: var(--node-bg-color);
+    position: relative;
+    min-width: 80px; /* 最小幅 */
+  }
+
+  /* ノード上の矢印（三角形）を描画 */
+  .flowchart-tree .node::before {
+    content: '';
+    position: absolute;
+    top: calc(-1 * var(--tree-line-width) - var(--arrow-size) * 2 + 2px); /* 位置調整 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: var(--arrow-size) solid transparent;
+    border-right: var(--arrow-size) solid transparent;
+    border-top: var(--arrow-size) solid var(--tree-line-color);
+    /* 下向き矢印にするためborder-topを使用し、配置で調整 */
+    display: block; 
+  }
+  
+  /* 最上部の親ノードには矢印をつけない場合 */
+  .flowchart-tree > ul > li > .node::before {
+    display: none;
+  }
+
+  /* ノードへの矢印を「下向き」に見せるための微調整 
+     (標準的なツリーは線がつながるだけですが、ご要望の矢印に対応させます)
+  */
+  .flowchart-tree li .node::after {
+    content: '';
+    position: absolute;
+    top: -12px; /* ノードの少し上 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 8px solid var(--tree-line-color); 
+  }
+  /* 最上位ノードの矢印削除 */
+  .flowchart-tree > ul > li > .node::after {
+    display: none;
+  }
+
+</style>
+
+<div class="flowchart-tree">
+  <ul>
+    <li>
+      <div class="node">Music</div>
+      
+      <ul>
+        <li>
+          <div class="node">Kunst</div>
+          
+          <ul>
+            <li><div class="node">Input 1</div></li>
+            <li><div class="node">Input 2</div></li>
+            <li><div class="node">Input 3</div></li>
+          </ul>
+          
+          <ul>
+             <li><div class="node">Output</div></li>
+           </ul>
+           
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
